@@ -30,7 +30,7 @@ cd /etc/netdata # Replace this path with your Netdata config directory
 sudo ./edit-config go.d/heliumvalidator.conf
 ```
 
-Needs `url`, `username` and `password`. Here is an example with two jobs:
+Needs `url`, `username` and `password`. Here is an example of the job:
 
 ```yaml
 jobs:
