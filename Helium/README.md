@@ -16,12 +16,9 @@ Works only with [Generation 2 wallets](https://docs.energi.software/en/downloads
 
 ## Charts
 
-- Blockchain index in `count`
-- Blockchain difficulty in `difficulty`
-- Memory pool in `bytes`
-- Network in `connections`
-- Network time offset in `seconds`
-- Transactions in `transactions`
+- Validator/Miner Block Age "block_age"
+- Validator/Miner Block Height "block_height"
+- Validator/Miner In Consensus Status "In_Consensus"
 
 ## Configuration
 
