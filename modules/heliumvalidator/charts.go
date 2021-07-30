@@ -3,7 +3,7 @@ package heliumvalidator
 import "github.com/netdata/go.d.plugin/agent/module"
 
 var charts = module.Charts{
-  // response from JSONRPC request: command "block_height"[height]"
+	// response from JSONRPC request: command "block_height"[height]
 	{
 		ID:    "blockheight",
 		Title: "Validator Height",
@@ -15,6 +15,7 @@ var charts = module.Charts{
 			{ID: "block_height", Name: "Height"},
 		},
 	},
+	// response from JSONRPC request: command "block_age"[block_age]
 	{
 		ID:    "blockage",
 		Title: "Block Age",
