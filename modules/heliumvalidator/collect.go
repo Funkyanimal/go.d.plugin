@@ -57,11 +57,11 @@ func (e *Heliumvalidator) collectInfoResponse(requests rpcRequests, responses rp
 		var err error
 		switch req.Method {
 		case methodBlockHeight:
-			info.Blockchain, err = parseBlockchainInfo(resp.Result)
+			info.BlockHeight, err = parseBlockHeightInfo(resp.Result)
 		case methodBlockAge:
-			info.MemPool, err = parseMemPoolInfo(resp.Result)
+			info.BlockAge, err = parseBlockAgeInfo(resp.Result)
 		case methodInConsensus:
-			info.Network, err = parseNetworkInfo(resp.Result)
+			info.InConsensus, err = parseInConsensusInfo(resp.Result)
 		}
 		if err != nil {
 			return nil, fmt.Errorf("parse '%s' method result: %v", req.Method, err)
@@ -71,50 +71,34 @@ func (e *Heliumvalidator) collectInfoResponse(requests rpcRequests, responses rp
 	return &info, nil
 }
 
-func parseBlockchainInfo(result []byte) (*blockchainInfo, error) {
-	var m blockchainInfo
+func parseBlockHeightInfo(result []byte) (*blockheightInfo, error) {
+	var m blockheightInfo
 	if err := json.Unmarshal(result, &m); err != nil {
 		return nil, err
 	}
 	return &m, nil
 }
 
-func parseMemPoolInfo(result []byte) (*memPoolInfo, error) {
-	var m memPoolInfo
+func parseblockageInfo(result []byte) (*memPoolInfo, error) {
+	var m blockageInfo
 	if err := json.Unmarshal(result, &m); err != nil {
 		return nil, err
 	}
 	return &m, nil
 }
 
-func parseNetworkInfo(result []byte) (*networkInfo, error) {
-	var m networkInfo
+func parseInConsensusInfo(result []byte) (*networkInfo, error) {
+	var m InConsensusInfo
 	if err := json.Unmarshal(result, &m); err != nil {
 		return nil, err
 	}
 	return &m, nil
 }
 
-func parseTXOutSetInfo(result []byte) (*txOutSetInfo, error) {
-	var m txOutSetInfo
-	if err := json.Unmarshal(result, &m); err != nil {
-		return nil, err
-	}
-	return &m, nil
-}
-
-func parseMemoryInfo(result []byte) (*memoryInfo, error) {
-	var m memoryInfo
-	if err := json.Unmarshal(result, &m); err != nil {
-		return nil, err
-	}
-	return &m, nil
-}
-
-func (e *Energid) scrapeEnergid(requests rpcRequests) (rpcResponses, error) {
+func (e *Heliumvalidator) scrapeHeliumvalidator(requests rpcRequests) (rpcResponses, error) {
 	req, _ := web.NewHTTPRequest(e.Request)
 	req.Method = http.MethodPost
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/jsonrpc")
 	body, _ := json.Marshal(requests)
 	req.Body = ioutil.NopCloser(bytes.NewReader(body))
 
@@ -126,7 +110,7 @@ func (e *Energid) scrapeEnergid(requests rpcRequests) (rpcResponses, error) {
 	return resp, nil
 }
 
-func (e *Energid) doOKDecode(req *http.Request, in interface{}) error {
+func (e *Heliumvalidator) doOKDecode(req *http.Request, in interface{}) error {
 	resp, err := e.httpClient.Do(req)
 	if err != nil {
 		return fmt.Errorf("error on HTTP request '%s': %v", req.URL, err)
