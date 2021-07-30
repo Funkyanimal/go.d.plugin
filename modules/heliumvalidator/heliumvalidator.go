@@ -1,4 +1,4 @@
-package energid
+package heliumvalidator
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	module.Register("energid", module.Creator{
+	module.Register("heliumvalidator", module.Creator{
 		Defaults: module.Defaults{
 			UpdateEvery: 5,
 		},
@@ -21,7 +21,7 @@ type Config struct {
 	web.HTTP `yaml:",inline"`
 }
 
-type Energid struct {
+type Heliumvalidator struct {
 	module.Base
 	Config `yaml:",inline"`
 
@@ -29,12 +29,12 @@ type Energid struct {
 	charts     *module.Charts
 }
 
-func New() *Energid {
-	return &Energid{
+func New() *Heliumvalidator {
+	return &Heliumvalidator{
 		Config: Config{
 			HTTP: web.HTTP{
 				Request: web.Request{
-					URL: "http://127.0.0.1:9796",
+					URL: "http://127.0.0.1:4467",
 				},
 				Client: web.Client{
 					Timeout: web.Duration{Duration: time.Second},
@@ -44,7 +44,7 @@ func New() *Energid {
 	}
 }
 
-func (e *Energid) Init() bool {
+func (e *Heliumvalidator) Init() bool {
 	err := e.validateConfig()
 	if err != nil {
 		e.Errorf("config validation: %v", err)
@@ -68,15 +68,15 @@ func (e *Energid) Init() bool {
 	return true
 }
 
-func (e *Energid) Check() bool {
+func (e *Heliumvalidator) Check() bool {
 	return len(e.Collect()) > 0
 }
 
-func (e *Energid) Charts() *module.Charts {
+func (e *Heliumvalidator) Charts() *module.Charts {
 	return e.charts
 }
 
-func (e *Energid) Collect() map[string]int64 {
+func (e *Heliumvalidator) Collect() map[string]int64 {
 	ms, err := e.collect()
 	if err != nil {
 		e.Error(err)
@@ -89,7 +89,7 @@ func (e *Energid) Collect() map[string]int64 {
 	return ms
 }
 
-func (e *Energid) Cleanup() {
+func (e *Heliumvalidator) Cleanup() {
 	if e.httpClient == nil {
 		return
 	}
