@@ -12,7 +12,7 @@ This module monitors a `Helium Validator/Miner` via JSONRPC 2.0 endpoints.
 
 ## Requirements
 
-Works only with [Generation 2 wallets](https://docs.energi.software/en/downloads/gen2-core-wallet).
+Works with official distributions from the Helium Dev Team: https://docs.helium.com/mine-hnt/validators/
 
 ## Charts
 
@@ -35,7 +35,7 @@ Needs `url`, `username` and `password`. Here is an example of the job:
 ```yaml
 jobs:
   - name: local
-    url: 'http://127.0.0.1:4479'
+    url: 'http://127.0.0.1:4467'
     username: 'netdata'
     password: 'netdata'
 ```
