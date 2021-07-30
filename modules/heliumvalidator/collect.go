@@ -33,7 +33,7 @@ func (e *Heliumvalidator) collect() (map[string]int64, error) {
 	      }
 
 	      info, err := e.collectInfoResponse(infoRequests, responses)
-      	if err != nil {
+      	      if err != nil {
 		            return nil, err
 	      }
 
@@ -56,11 +56,11 @@ func (e *Heliumvalidator) collectInfoResponse(requests rpcRequests, responses rp
 
 		var err error
 		switch req.Method {
-		case methodGetBlockchainInfo:
+		case methodBlockHeight:
 			info.Blockchain, err = parseBlockchainInfo(resp.Result)
-		case methodGetMemPoolInfo:
+		case methodBlockAge:
 			info.MemPool, err = parseMemPoolInfo(resp.Result)
-		case methodGetNetworkInfo:
+		case methodInConsensus:
 			info.Network, err = parseNetworkInfo(resp.Result)
 		}
 		if err != nil {
